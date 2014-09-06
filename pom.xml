@@ -12,7 +12,7 @@
         <dependency>
             <groupId>com.aif</groupId>
             <artifactId>aif</artifactId>
-            <version>2.0-20140906.213710-5</version>
+            <version>2.0-20140906.232304-7</version>
         </dependency>
         <dependency>
             <groupId>commons-cli</groupId>
@@ -20,6 +20,10 @@
             <version>1.2</version>
         </dependency>
     </dependencies>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <build>
         <plugins>

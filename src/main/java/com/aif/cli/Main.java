@@ -1,11 +1,10 @@
 package com.aif.cli;
 
 import com.aif.cli.common.FileHelper;
+import com.aif.language.sentence.SentencesSeparatorExtractor;
 import org.apache.commons.cli.*;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -45,8 +44,7 @@ public class Main {
     }
 
     private static void executeESS(final String text) {
-        final SentencesSeparatorExtractor sentencesSeparatorExtractor = new SentencesSeparatorExtractor(text);
-        System.out.printf("Sentences separators: %s", sentencesSeparatorExtractor.extract());
+        new SentencesSeparatorExtractor(text).extractAndShow();
     }
 
     private static void commandLinePrecheck(final CommandLine commandLine) throws ParseException {
