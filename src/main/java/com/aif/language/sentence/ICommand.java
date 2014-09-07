@@ -9,16 +9,20 @@ public interface ICommand extends Function<String, Void> {
 
     public enum Commands {
 
-        SENTENCE_SPLIT("ssplit", new SentenceSplitCommand()),
-        SENTENCE_SEPARATOR_EXTRACTOR("ess", new SentencesSeparatorExtractorCommand());
+        SENTENCE_SPLIT("ssplit", new SentenceSplitCommand(), "Split text to sentences"),
+        SENTENCE_SEPARATOR_EXTRACTOR("ess", new SentencesSeparatorExtractorCommand(), "Extract sentences separators"),
+        HELP("help", new PrintHelpCommand(), "Print this message");
 
         private final String commandKey;
 
         private final ICommand command;
 
-        Commands(final String commandKey, final ICommand command) {
+        private final String helpLine;
+
+        Commands(final String commandKey, final ICommand command, final String helpLine) {
             this.commandKey = commandKey;
             this.command = command;
+            this.helpLine = helpLine;
         }
 
         public String getCommandKey() {
@@ -27,6 +31,10 @@ public interface ICommand extends Function<String, Void> {
 
         public ICommand getCommand() {
             return command;
+        }
+
+        public String getHelpLine() {
+            return helpLine;
         }
 
     }

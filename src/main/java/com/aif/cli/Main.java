@@ -11,19 +11,13 @@ import java.nio.file.Paths;
 
 public class Main {
 
-    private static final String ESS_KEY = "ess";
-    private static final String SENTENCE_SPLIT_KEY = "ssplit";
-    private static final String HELP_KEY = "help";
-
     public static void main(String... args) throws IOException {
         final Options options = Main.createCLIOptions();
         try {
             final CommandLine commandLine = Main.createCommandLineParser(options, args);
-            if (commandLine.hasOption(HELP_KEY)) {
-                showHelp(options);
-                return;
+            if (!commandLine.hasOption(ICommand.Commands.HELP.getCommandKey())) {
+                Main.commandLinePrecheck(commandLine);
             }
-            Main.commandLinePrecheck(commandLine);
             Main.executeCommandLine(commandLine);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -31,9 +25,14 @@ public class Main {
         }
     }
 
-    private static void showHelp(final Options options) {
-        final HelpFormatter formatter = new HelpFormatter();
-        formatter.printHelp( "aif-cli [key] <path>", options );
+    public static Options createCLIOptions() {
+        final Options options = new Options();
+
+        options.addOption(ICommand.Commands.HELP.getCommandKey(), false, ICommand.Commands.HELP.getHelpLine());
+        options.addOption(ICommand.Commands.SENTENCE_SEPARATOR_EXTRACTOR.getCommandKey(), false, ICommand.Commands.SENTENCE_SEPARATOR_EXTRACTOR.getHelpLine());
+        options.addOption(ICommand.Commands.SENTENCE_SPLIT.getCommandKey(), false, ICommand.Commands.SENTENCE_SPLIT.getHelpLine());
+
+        return options;
     }
 
     private static void executeCommandLine(final CommandLine commandLine) throws IOException {
@@ -58,16 +57,6 @@ public class Main {
         if (!Files.exists(path)) {
             throw new ParseException(String.format("Path: %s not exists", path));
         }
-    }
-
-    private static Options createCLIOptions() {
-        final Options options = new Options();
-
-        options.addOption(HELP_KEY, false, "print this message" );
-        options.addOption(ESS_KEY, false, "Extract sentences separators");
-        options.addOption(SENTENCE_SPLIT_KEY, false, "Split text to sentences");
-
-        return options;
     }
 
     private static CommandLine createCommandLineParser(final Options options, final String... args) throws ParseException {
