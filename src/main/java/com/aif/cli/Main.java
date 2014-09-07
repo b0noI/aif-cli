@@ -1,6 +1,7 @@
 package com.aif.cli;
 
 import com.aif.cli.common.FileHelper;
+import com.aif.language.sentence.SentenceSplitCommand;
 import com.aif.language.sentence.SentencesSeparatorExtractor;
 import org.apache.commons.cli.*;
 
@@ -12,6 +13,7 @@ import java.nio.file.Paths;
 public class Main {
 
     private static final String ESS_KEY = "ess";
+    private static final String SENTENCE_SPLIT_KEY = "ssplit";
     private static final String HELP_KEY = "help";
 
     public static void main(String... args) throws IOException {
@@ -41,6 +43,13 @@ public class Main {
         if (commandLine.hasOption(ESS_KEY)) {
             executeESS(text);
         }
+        if(commandLine.hasOption(SENTENCE_SPLIT_KEY)) {
+            executeSSplit(text);
+        }
+    }
+
+    private static void executeSSplit(final String text) {
+        new SentenceSplitCommand(text).sentenceSplitAndShow();
     }
 
     private static void executeESS(final String text) {
@@ -65,6 +74,7 @@ public class Main {
 
         options.addOption(HELP_KEY, false, "print this message" );
         options.addOption(ESS_KEY, false, "Extract sentences separators");
+        options.addOption(SENTENCE_SPLIT_KEY, false, "Split text to sentences");
 
         return options;
     }
