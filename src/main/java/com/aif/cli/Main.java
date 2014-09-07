@@ -1,8 +1,7 @@
 package com.aif.cli;
 
 import com.aif.cli.common.FileHelper;
-import com.aif.language.sentence.SentenceSplitCommand;
-import com.aif.language.sentence.SentencesSeparatorExtractor;
+import com.aif.language.sentence.ICommand;
 import org.apache.commons.cli.*;
 
 import java.io.IOException;
@@ -40,20 +39,12 @@ public class Main {
     private static void executeCommandLine(final CommandLine commandLine) throws IOException {
         final String path = commandLine.getArgs()[0];
         final String text = FileHelper.readAllTextFromFile(path);
-        if (commandLine.hasOption(ESS_KEY)) {
-            executeESS(text);
+        for (ICommand.Commands command : ICommand.Commands.values()) {
+            if (commandLine.hasOption(command.getCommandKey())) {
+                command.getCommand().apply(text);
+                return;
+            }
         }
-        if(commandLine.hasOption(SENTENCE_SPLIT_KEY)) {
-            executeSSplit(text);
-        }
-    }
-
-    private static void executeSSplit(final String text) {
-        new SentenceSplitCommand(text).sentenceSplitAndShow();
-    }
-
-    private static void executeESS(final String text) {
-        new SentencesSeparatorExtractor(text).extractAndShow();
     }
 
     private static void commandLinePrecheck(final CommandLine commandLine) throws ParseException {
