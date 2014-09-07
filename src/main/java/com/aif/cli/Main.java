@@ -28,9 +28,9 @@ public class Main {
     public static Options createCLIOptions() {
         final Options options = new Options();
 
-        options.addOption(ICommand.Commands.HELP.getCommandKey(), false, ICommand.Commands.HELP.getHelpLine());
-        options.addOption(ICommand.Commands.SENTENCE_SEPARATOR_EXTRACTOR.getCommandKey(), false, ICommand.Commands.SENTENCE_SEPARATOR_EXTRACTOR.getHelpLine());
-        options.addOption(ICommand.Commands.SENTENCE_SPLIT.getCommandKey(), false, ICommand.Commands.SENTENCE_SPLIT.getHelpLine());
+        for (ICommand.Commands command : ICommand.Commands.values()) {
+            options.addOption(command.getCommandKey(), false, command.getHelpLine());
+        }
 
         return options;
     }

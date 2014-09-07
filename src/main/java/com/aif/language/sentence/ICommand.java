@@ -11,7 +11,9 @@ public interface ICommand extends Function<String, Void> {
 
         SENTENCE_SPLIT("ssplit", new SentenceSplitCommand(), "Split text to sentences"),
         SENTENCE_SEPARATOR_EXTRACTOR("ess", new SentencesSeparatorExtractorCommand(), "Extract sentences separators"),
-        HELP("help", new PrintHelpCommand(), "Print this message");
+        HELP("help", new PrintHelpCommand(), "Print this message"),
+        VERSION("v", new PrintVersionCommand(), "Print CLI and AIF versions");
+
 
         private final String commandKey;
 
