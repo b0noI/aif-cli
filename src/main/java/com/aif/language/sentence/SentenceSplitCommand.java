@@ -19,12 +19,17 @@ class SentenceSplitCommand implements ICommand {
         return sentenceBuilder.toString();
     }
 
+    private void buildSentenceAndPrint(List<String> sentence) {
+
+        System.out.println(String.format(SENTENCE_TEMPLATE, sentenceToString(sentence)));
+    }
+
     @Override
     public Void apply(final String text) {
         final TokenSplitter tokenSplitter = new TokenSplitter();
         final ISplitter<List<String>, List<String>> sentenceSplitter = new SentenceSplitter();
         final List<List<String>> result = sentenceSplitter.split(tokenSplitter.split(text));
-        result.forEach(sent -> System.out.println(String.format(SENTENCE_TEMPLATE, sentenceToString(sent))));
+        result.forEach(this::buildSentenceAndPrint);
         return null;
     }
 }
