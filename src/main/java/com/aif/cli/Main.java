@@ -15,10 +15,13 @@ public class Main {
         final Options options = Main.createCLIOptions();
         try {
             final CommandLine commandLine = Main.createCommandLineParser(options, args);
-            if (!commandLine.hasOption(ICommand.Commands.HELP.getCommandKey())) {
-                Main.commandLinePrecheck(commandLine);
+            for (ICommand.Commands command : ICommand.Commands.values()) {
+                if (commandLine.hasOption(command.getCommandKey())) {
+                    command.getCommand().validate(commandLine.getArgs());
+                    command.getCommand().apply(commandLine.getArgs());
+                    return;
+                }
             }
-            Main.executeCommandLine(commandLine);
         } catch (ParseException e) {
             e.printStackTrace();
             System.out.printf("ERROR: %s ; Try --help", e.getMessage());
@@ -33,17 +36,6 @@ public class Main {
         }
 
         return options;
-    }
-
-    private static void executeCommandLine(final CommandLine commandLine) throws IOException {
-        final String path = commandLine.getArgs()[0];
-        final String text = FileHelper.readAllTextFromFile(path);
-        for (ICommand.Commands command : ICommand.Commands.values()) {
-            if (commandLine.hasOption(command.getCommandKey())) {
-                command.getCommand().apply(text);
-                return;
-            }
-        }
     }
 
     private static void commandLinePrecheck(final CommandLine commandLine) throws ParseException {

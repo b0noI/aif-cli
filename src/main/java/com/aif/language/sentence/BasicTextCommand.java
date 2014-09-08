@@ -1,7 +1,13 @@
 package com.aif.language.sentence;
 
-/**
- * Created by b0noI on 08/09/14.
- */
-public class BasicTextCommand {
+abstract class BasicTextCommand implements ICommand {
+
+    @Override
+    public boolean validate(String... args) {
+        if (args.length != 0 ) {
+            return false;
+        }
+        return true;
+    }
+
 }

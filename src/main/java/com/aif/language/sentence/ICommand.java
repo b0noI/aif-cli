@@ -5,7 +5,9 @@ import java.util.function.Function;
 /**
  * Created by b0noI on 07/09/14.
  */
-public interface ICommand extends Function<String, Void> {
+public interface ICommand extends Function<String[], Void> {
+
+    public boolean validate(String... args);
 
     public enum Commands {
 
