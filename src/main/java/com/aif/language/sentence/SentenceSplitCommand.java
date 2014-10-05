@@ -2,6 +2,7 @@ package com.aif.language.sentence;
 
 import com.aif.cli.common.FileHelper;
 import com.aif.language.common.ISplitter;
+import com.aif.language.sentence.splitters.AbstractSentenceSplitter;
 import com.aif.language.token.TokenSplitter;
 
 import java.io.IOException;
@@ -36,7 +37,7 @@ class SentenceSplitCommand extends BasicTextCommand {
             return null;
         }
         final TokenSplitter tokenSplitter = new TokenSplitter();
-        final ISplitter<List<String>, List<String>> sentenceSplitter = new SentenceSplitter();
+        final ISplitter<List<String>, List<String>> sentenceSplitter = AbstractSentenceSplitter.Type.HEURISTIC.getInstance();
         final List<List<String>> result = sentenceSplitter.split(tokenSplitter.split(text));
         result.forEach(this::buildSentenceAndPrint);
         return null;

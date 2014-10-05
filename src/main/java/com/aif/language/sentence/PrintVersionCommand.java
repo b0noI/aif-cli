@@ -1,9 +1,11 @@
 package com.aif.language.sentence;
 
+import com.aif.language.common.settings.ISettings;
+
 class PrintVersionCommand extends BasicCommandWithoutArguments {
 
-    private static final String AIF_VERSION = "0.0.0-Alpha1";
-    private static final String CLI_VERSION = "1.0";
+    private static final String AIF_VERSION = ISettings.SETTINGS.getVersion();
+    private static final String CLI_VERSION = "1.1";
 
     @Override
     public Void apply(String... s) {
