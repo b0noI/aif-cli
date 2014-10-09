@@ -13,6 +13,7 @@ public interface ICommand extends Function<String[], Void> {
 
         SENTENCE_SPLIT("ssplit", new SentenceSplitCommand(), "Split text to sentences"),
         SENTENCE_SEPARATOR_EXTRACTOR("ess", new SentencesSeparatorExtractorCommand(), "Extract sentences separators"),
+        STAMMER_EXTRACTOR("estam", new StammerExtractorCommand(), "Extract stammers from text"),
         TOKEN_SPLIT("tsplit", new TokenSplitCommand(), "Split text to tokens"),
         TOKEN_SEPARATOR_EXTRACTOR("ets", new TokenSeparatorExtractorCommand(), "Get token separator unicode hex"),
         HELP("help", new PrintHelpCommand(), "Print this message"),
