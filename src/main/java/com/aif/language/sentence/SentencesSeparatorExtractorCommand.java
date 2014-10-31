@@ -16,7 +16,7 @@ class SentencesSeparatorExtractorCommand extends BasicTextCommand {
 
     private static final String PRINT_CHARACTERS_IN_GROUP    = "Group: \'%s\', characters: %s\n";
 
-    private static final String NO_SEPARATOR_WERE_FOUND    = "No separators were found";
+    private static final String NO_SEPARATOR_WERE_FOUND      = "No separators were found";
 
     @Override
     public Void apply(final String... args) {

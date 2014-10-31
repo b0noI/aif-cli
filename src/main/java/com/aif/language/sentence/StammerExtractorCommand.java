@@ -1,30 +1,21 @@
 package com.aif.language.sentence;
 
 import com.aif.cli.common.FileHelper;
-import com.aif.language.common.ISplitter;
-import com.aif.language.sentence.splitters.AbstractSentenceSplitter;
 import com.aif.language.token.TokenSplitter;
-import com.aif.language.word.AbstractWord;
-import com.aif.language.word.IWordExtractor;
-import com.aif.language.word.WordExtractor;
+import com.aif.language.word.IWord;
+import com.aif.language.word.dict.DictBuilder;
+import com.aif.language.word.dict.IDictBuilder;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
-public class StammerExtractorCommand extends BasicTextCommand {
+class StammerExtractorCommand extends BasicTextCommand {
 
-    private static final String STAMMER_TEMPLATE = "Stammer: [ %s ]";
+    private static final String WORD_OUTPUT_TEMPLATE = "Basic token: %s tokens: [ %s ]";
 
-    private void printListOfStammers(List<AbstractWord.WordPlaceHolder> listOfStammers) {
-        for(AbstractWord.WordPlaceHolder stammer: listOfStammers) {
-            printStammer(stammer);
-        }
-    }
-
-    private void printStammer(AbstractWord.WordPlaceHolder stammer) {
-
-        System.out.println(String.format(STAMMER_TEMPLATE, stammer));
-
+    private void printWord(final IWord word) {
+        System.out.println(String.format(WORD_OUTPUT_TEMPLATE, word.getRootToken(), word.getAllTokens()));
     }
 
     @Override
@@ -37,10 +28,9 @@ public class StammerExtractorCommand extends BasicTextCommand {
             return null;
         }
         final TokenSplitter tokenSplitter = new TokenSplitter();
-        final ISplitter<List<String>, List<String>> sentenceSplitter = AbstractSentenceSplitter.Type.HEURISTIC.getInstance();
-        final IWordExtractor wordExtractor = new WordExtractor();
-        final List<List<AbstractWord.WordPlaceHolder>> result = wordExtractor.getWords(sentenceSplitter.split(tokenSplitter.split(text)));
-        result.forEach(this::printListOfStammers);
+        final IDictBuilder<Collection<String>> stemmer = new DictBuilder();
+        final List<IWord> result = stemmer.build(tokenSplitter.split(text));
+        result.forEach(this::printWord);
         return null;
     }
 }
