@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
-class StammerExtractorCommand extends BasicTextCommand {
+class DictBuildCommand extends BasicTextCommand {
 
     private static final String WORD_OUTPUT_TEMPLATE = "Basic token: %s tokens: [ %s ]";
 

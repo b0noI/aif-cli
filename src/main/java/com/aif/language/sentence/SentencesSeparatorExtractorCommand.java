@@ -7,9 +7,9 @@ import java.util.Optional;
 import java.util.Set;
 
 import com.aif.cli.common.FileHelper;
-import com.aif.language.sentence.separators.clasificators.ISentenceSeparatorGroupsClassificatory;
-import com.aif.language.sentence.separators.extractors.ISentenceSeparatorExtractor;
-import com.aif.language.sentence.separators.groupers.ISentenceSeparatorsGrouper;
+import com.aif.language.sentence.separators.classificators.ISeparatorGroupsClassificatory;
+import com.aif.language.sentence.separators.extractors.ISeparatorExtractor;
+import com.aif.language.sentence.separators.groupers.ISeparatorsGrouper;
 import com.aif.language.token.TokenSplitter;
 
 class SentencesSeparatorExtractorCommand extends BasicTextCommand {
@@ -28,9 +28,9 @@ class SentencesSeparatorExtractorCommand extends BasicTextCommand {
             return null;
         }
         final TokenSplitter tokenSplitter = new TokenSplitter();
-        final ISentenceSeparatorExtractor separatorExtractor = ISentenceSeparatorExtractor.Type.PROBABILITY.getInstance();
-        ISentenceSeparatorsGrouper separatorsGrouper = ISentenceSeparatorsGrouper.Type.PROBABILITY.getInstance();
-        ISentenceSeparatorGroupsClassificatory sentenceSeparatorGroupsClassificatory = ISentenceSeparatorGroupsClassificatory.Type.PROBABILITY.getInstance();
+        final ISeparatorExtractor separatorExtractor = ISeparatorExtractor.Type.PROBABILITY.getInstance();
+        ISeparatorsGrouper separatorsGrouper = ISeparatorsGrouper.Type.PROBABILITY.getInstance();
+        ISeparatorGroupsClassificatory sentenceSeparatorGroupsClassificatory = ISeparatorGroupsClassificatory.Type.PROBABILITY.getInstance();
 
         final List<String> tokens = tokenSplitter.split(text);
         final Optional<List<Character>> optSeparators = separatorExtractor.extract(tokens);
@@ -41,7 +41,7 @@ class SentencesSeparatorExtractorCommand extends BasicTextCommand {
         final List<Character> separators = optSeparators.get();
 
         final List<Set<Character>> separatorsGroupsUnclasify = separatorsGrouper.group(tokens, separators);
-        final Map<ISentenceSeparatorGroupsClassificatory.Group, Set<Character>> separatorsGroups = sentenceSeparatorGroupsClassificatory.classify(tokens, separatorsGroupsUnclasify);
+        final Map<ISeparatorGroupsClassificatory.Group, Set<Character>> separatorsGroups = sentenceSeparatorGroupsClassificatory.classify(tokens, separatorsGroupsUnclasify);
         separatorsGroups.keySet().forEach(key -> System.out.printf(PRINT_CHARACTERS_IN_GROUP, key, toString(separatorsGroups.get(key))));
         return null;
     }
