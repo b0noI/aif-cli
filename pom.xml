@@ -12,7 +12,7 @@
         <dependency>
             <groupId>com.aif</groupId>
             <artifactId>aif</artifactId>
-            <version>0.0.0-Alpha1</version>
+            <version>1.0.0-Alpha2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>commons-cli</groupId>
@@ -64,7 +64,7 @@
     <repositories>
         <repository>
             <id>aif.com</id>
-            <url>http://192.241.238.122:8081/artifactory/libs-release-local/</url>
+            <url>http://192.241.238.122:8081/artifactory/libs-snapshot-local/</url>
         </repository>
     </repositories>
 
