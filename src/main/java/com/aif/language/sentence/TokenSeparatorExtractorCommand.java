@@ -1,7 +1,7 @@
 package com.aif.language.sentence;
 
 import com.aif.cli.common.FileHelper;
-import com.aif.language.token.ITokenSeparatorExtractor;
+import io.aif.language.token.ITokenSeparatorExtractor;
 
 import java.io.IOException;
 import java.util.List;

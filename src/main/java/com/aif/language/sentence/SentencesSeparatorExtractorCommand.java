@@ -7,10 +7,10 @@ import java.util.Optional;
 import java.util.Set;
 
 import com.aif.cli.common.FileHelper;
-import com.aif.language.sentence.separators.classificators.ISeparatorGroupsClassificatory;
-import com.aif.language.sentence.separators.extractors.ISeparatorExtractor;
-import com.aif.language.sentence.separators.groupers.ISeparatorsGrouper;
-import com.aif.language.token.TokenSplitter;
+import io.aif.language.sentence.separators.classificators.ISeparatorGroupsClassificatory;
+import io.aif.language.sentence.separators.extractors.ISeparatorExtractor;
+import io.aif.language.sentence.separators.groupers.ISeparatorsGrouper;
+import io.aif.language.token.TokenSplitter;
 
 class SentencesSeparatorExtractorCommand extends BasicTextCommand {
 
@@ -29,8 +29,8 @@ class SentencesSeparatorExtractorCommand extends BasicTextCommand {
         }
         final TokenSplitter tokenSplitter = new TokenSplitter();
         final ISeparatorExtractor separatorExtractor = ISeparatorExtractor.Type.PROBABILITY.getInstance();
-        ISeparatorsGrouper separatorsGrouper = ISeparatorsGrouper.Type.PROBABILITY.getInstance();
-        ISeparatorGroupsClassificatory sentenceSeparatorGroupsClassificatory = ISeparatorGroupsClassificatory.Type.PROBABILITY.getInstance();
+        final ISeparatorsGrouper separatorsGrouper = ISeparatorsGrouper.Type.PROBABILITY.getInstance();
+        final ISeparatorGroupsClassificatory sentenceSeparatorGroupsClassificatory = ISeparatorGroupsClassificatory.Type.PROBABILITY.getInstance();
 
         final List<String> tokens = tokenSplitter.split(text);
         final Optional<List<Character>> optSeparators = separatorExtractor.extract(tokens);

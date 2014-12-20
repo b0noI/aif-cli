@@ -1,9 +1,9 @@
 package com.aif.language.sentence;
 
 import com.aif.cli.common.FileHelper;
-import com.aif.language.common.ISplitter;
-import com.aif.language.sentence.splitters.AbstractSentenceSplitter;
-import com.aif.language.token.TokenSplitter;
+import io.aif.language.common.ISplitter;
+import io.aif.language.sentence.splitters.AbstractSentenceSplitter;
+import io.aif.language.token.TokenSplitter;
 
 import java.io.IOException;
 import java.util.List;

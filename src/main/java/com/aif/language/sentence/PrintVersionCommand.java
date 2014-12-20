@@ -1,6 +1,6 @@
 package com.aif.language.sentence;
 
-import com.aif.language.common.settings.ISettings;
+import io.aif.language.common.settings.ISettings;
 
 class PrintVersionCommand extends BasicCommandWithoutArguments {
 
