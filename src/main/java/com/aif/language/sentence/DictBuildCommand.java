@@ -1,14 +1,14 @@
 package com.aif.language.sentence;
 
 import com.aif.cli.common.FileHelper;
-import com.aif.language.token.TokenSplitter;
-import com.aif.language.word.IWord;
-import com.aif.language.word.dict.DictBuilder;
-import com.aif.language.word.dict.IDictBuilder;
+import io.aif.language.token.TokenSplitter;
+import io.aif.language.word.IWord;
+import io.aif.language.word.dict.DictBuilder;
+import io.aif.language.word.dict.IDictBuilder;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
+import java.util.Set;
 
 class DictBuildCommand extends BasicTextCommand {
 
@@ -29,7 +29,7 @@ class DictBuildCommand extends BasicTextCommand {
         }
         final TokenSplitter tokenSplitter = new TokenSplitter();
         final IDictBuilder<Collection<String>> stemmer = new DictBuilder();
-        final List<IWord> result = stemmer.build(tokenSplitter.split(text));
+        final Set<IWord> result = stemmer.build(tokenSplitter.split(text)).getWords();
         result.forEach(this::printWord);
         return null;
     }
