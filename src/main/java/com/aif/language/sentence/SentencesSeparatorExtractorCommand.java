@@ -7,14 +7,13 @@ import java.util.Optional;
 import java.util.Set;
 
 import com.aif.cli.common.FileHelper;
+import com.aif.cli.common.ResultPrinter;
 import io.aif.language.sentence.separators.classificators.ISeparatorGroupsClassificatory;
 import io.aif.language.sentence.separators.extractors.ISeparatorExtractor;
 import io.aif.language.sentence.separators.groupers.ISeparatorsGrouper;
 import io.aif.language.token.TokenSplitter;
 
 class SentencesSeparatorExtractorCommand extends BasicTextCommand {
-
-    private static final String PRINT_CHARACTERS_IN_GROUP    = "Group: \'%s\', characters: %s\n";
 
     private static final String NO_SEPARATOR_WERE_FOUND      = "No separators were found";
 
@@ -42,17 +41,10 @@ class SentencesSeparatorExtractorCommand extends BasicTextCommand {
 
         final List<Set<Character>> separatorsGroupsUnclasify = separatorsGrouper.group(tokens, separators);
         final Map<ISeparatorGroupsClassificatory.Group, Set<Character>> separatorsGroups = sentenceSeparatorGroupsClassificatory.classify(tokens, separatorsGroupsUnclasify);
-        separatorsGroups.keySet().forEach(key -> System.out.printf(PRINT_CHARACTERS_IN_GROUP, key, toString(separatorsGroups.get(key))));
+        ResultPrinter.PrintSentenceSeparatorSplitResult(separatorsGroups);
         return null;
     }
 
-    private static String toString(final Set<Character> characters) {
-        final StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append('[');
-        characters.forEach(ch -> stringBuilder.append(ch + " "));
-        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-        stringBuilder.append(']');
-        return stringBuilder.toString();
-    }
+
 
 }
