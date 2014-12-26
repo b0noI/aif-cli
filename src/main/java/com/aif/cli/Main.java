@@ -23,8 +23,7 @@ public class Main {
                 }
             }
         } catch (ParseException e) {
-            e.printStackTrace();
-            System.out.printf("ERROR: %s ; Try --help", e.getMessage());
+            System.out.printf("ERROR: %s ; Try -help \n", e.getMessage());
         }
     }
 
