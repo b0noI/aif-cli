@@ -12,7 +12,6 @@ import java.util.*;
 public class ResultPrinter {
 
     private static final int MAX_SINGLE_OUTPUT = 50;
-    private static final List<String> res = new ArrayList<>();
     private static int count = 0;
     private static int length = 0;
     private static boolean stop = false;
@@ -80,6 +79,8 @@ public class ResultPrinter {
 
         final String template = "Separator: \\u%s";
 
+        length = result.size();
+
         result.forEach(separator -> {
 
             if(!stop) {
@@ -96,6 +97,8 @@ public class ResultPrinter {
     public static void PrintStammerExtrctResult(Set<IWord> result) {
 
         final String template = "Basic token: %s tokens: [ %s ]";
+
+        length = result.size();
 
         result.forEach(word -> {
 
