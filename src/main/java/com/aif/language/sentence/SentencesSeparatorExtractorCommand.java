@@ -8,7 +8,7 @@ import java.util.Set;
 
 import com.aif.cli.common.FileHelper;
 import com.aif.cli.common.ResultPrinter;
-import io.aif.language.sentence.separators.classificators.ISeparatorGroupsClassificatory;
+import io.aif.language.sentence.separators.classificators.ISeparatorGroupsClassifier;
 import io.aif.language.sentence.separators.extractors.ISeparatorExtractor;
 import io.aif.language.sentence.separators.groupers.ISeparatorsGrouper;
 import io.aif.language.token.TokenSplitter;
@@ -29,7 +29,7 @@ class SentencesSeparatorExtractorCommand extends BasicTextCommand {
         final TokenSplitter tokenSplitter = new TokenSplitter();
         final ISeparatorExtractor separatorExtractor = ISeparatorExtractor.Type.PROBABILITY.getInstance();
         final ISeparatorsGrouper separatorsGrouper = ISeparatorsGrouper.Type.PROBABILITY.getInstance();
-        final ISeparatorGroupsClassificatory sentenceSeparatorGroupsClassificatory = ISeparatorGroupsClassificatory.Type.PROBABILITY.getInstance();
+        final ISeparatorGroupsClassifier sentenceSeparatorGroupsClassificatory = ISeparatorGroupsClassifier.Type.PROBABILITY.getInstance();
 
         final List<String> tokens = tokenSplitter.split(text);
         final Optional<List<Character>> optSeparators = separatorExtractor.extract(tokens);
@@ -40,7 +40,7 @@ class SentencesSeparatorExtractorCommand extends BasicTextCommand {
         final List<Character> separators = optSeparators.get();
 
         final List<Set<Character>> separatorsGroupsUnclasify = separatorsGrouper.group(tokens, separators);
-        final Map<ISeparatorGroupsClassificatory.Group, Set<Character>> separatorsGroups = sentenceSeparatorGroupsClassificatory.classify(tokens, separatorsGroupsUnclasify);
+        final Map<ISeparatorGroupsClassifier.Group, Set<Character>> separatorsGroups = sentenceSeparatorGroupsClassificatory.classify(tokens, separatorsGroupsUnclasify);
         ResultPrinter.PrintSentenceSeparatorSplitResult(separatorsGroups);
         return null;
     }

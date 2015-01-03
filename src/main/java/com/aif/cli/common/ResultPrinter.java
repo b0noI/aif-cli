@@ -1,7 +1,7 @@
 package com.aif.cli.common;
 
 
-import io.aif.language.sentence.separators.classificators.ISeparatorGroupsClassificatory;
+import io.aif.language.sentence.separators.classificators.ISeparatorGroupsClassifier;
 import io.aif.language.word.IWord;
 
 import java.io.BufferedReader;
@@ -35,7 +35,7 @@ public class ResultPrinter {
 
     }
 
-    public static void PrintSentenceSeparatorSplitResult(Map<ISeparatorGroupsClassificatory.Group, Set<Character>> result) {
+    public static void PrintSentenceSeparatorSplitResult(Map<ISeparatorGroupsClassifier.Group, Set<Character>> result) {
 
         final String template = "Group: \'%s\', characters: %s\n";
 
