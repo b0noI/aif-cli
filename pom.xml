@@ -63,8 +63,9 @@
 
     <repositories>
         <repository>
-            <id>aif.com</id>
-            <url>http://192.241.238.122:8081/artifactory/libs-release-local/</url>
+            <id>repo</id>
+            <name>repo-snapshots</name>
+            <url>http://192.241.238.122:8081/artifactory/libs-snapshot-local</url>
         </repository>
     </repositories>
 
