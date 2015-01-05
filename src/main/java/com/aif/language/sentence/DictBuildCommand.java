@@ -28,9 +28,6 @@ class DictBuildCommand extends BasicTextCommand {
             e.printStackTrace();
             return null;
         }
-        //final TokenSplitter tokenSplitter = new TokenSplitter();
-        //final IDictBuilder<Collection<String>> stemmer = new DictBuilder();
-        //final Set<IWord> result = stemmer.build(tokenSplitter.split(text)).getWords();
 
         final TokenSplitter tokenSplitter = new TokenSplitter();
         final AbstractSentenceSplitter sentenceSplitter = AbstractSentenceSplitter.Type.HEURISTIC.getInstance();
