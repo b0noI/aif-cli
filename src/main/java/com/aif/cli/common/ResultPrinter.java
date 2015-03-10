@@ -1,6 +1,7 @@
 package com.aif.cli.common;
 
 
+import io.aif.language.semantic.ISemanticNode;
 import io.aif.language.sentence.separators.classificators.ISeparatorGroupsClassifier;
 import io.aif.language.word.IWord;
 
@@ -112,6 +113,28 @@ public class ResultPrinter {
         });
 
     }
+
+    public static void PrintSemanticDictionaryBuildResult(List<ISemanticNode<IWord>> result) {
+
+        final String template = "Semantic node: %s, with weight = %.5f.";
+
+        length = result.size();
+
+        result.forEach(word -> {
+
+            if(!stop) {
+                System.out.println(String.format(template, word.item().getRootToken(), word.weight()));
+                length--;
+                count++;
+                stopper();
+            }
+
+        });
+
+        FileHelper.saveSemanticResult(result);
+
+    }
+
 
     private static void stopper() {
 

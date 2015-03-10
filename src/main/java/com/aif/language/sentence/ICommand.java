@@ -16,6 +16,7 @@ public interface ICommand extends Function<String[], Void> {
         DICT_BUILD("dbuild", new DictBuildCommand(), "Build text dictionary from source text"),
         TOKEN_SPLIT("tsplit", new TokenSplitCommand(), "Split text to tokens"),
         TOKEN_SEPARATOR_EXTRACTOR("ets", new TokenSeparatorExtractorCommand(), "Get token separator unicode hex"),
+        SEMANTIC_DICT_BUILD("sbuild", new SemanticDictBuildCommand(), "Build Semantic Dictionary and save result in the file"),
         HELP("help", new PrintHelpCommand(), "Print this message"),
         VERSION("v", new PrintVersionCommand(), "Print CLI and AIF versions");
 

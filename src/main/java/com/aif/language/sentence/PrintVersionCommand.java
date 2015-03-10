@@ -5,7 +5,7 @@ import io.aif.language.common.settings.ISettings;
 class PrintVersionCommand extends BasicCommandWithoutArguments {
 
     private static final String AIF_VERSION = ISettings.SETTINGS.getVersion();
-    private static final String CLI_VERSION = "1.3";
+    private static final String CLI_VERSION = "1.4";
 
     @Override
     public Void apply(String... s) {

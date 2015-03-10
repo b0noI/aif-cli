@@ -2,14 +2,18 @@ package com.aif.language.sentence;
 
 import com.aif.cli.common.FileHelper;
 import com.aif.cli.common.ResultPrinter;
+import io.aif.language.common.IDict;
 import io.aif.language.sentence.splitters.AbstractSentenceSplitter;
 import io.aif.language.token.TokenSplitter;
 import io.aif.language.token.comparator.ITokenComparator;
-import io.aif.language.word.IDict;
-import io.aif.language.word.IWord;
-import io.aif.language.word.comparator.ISetComparator;
+//import io.aif.language.word.IDict;
+//import io.aif.language.word.IWord;
+//import io.aif.language.word.comparator.ISetComparator;
+import io.aif.language.word.comparator.IGroupComparator;
 import io.aif.language.word.dict.DictBuilder;
-import io.aif.language.word.dict.IDictBuilder;
+import io.aif.language.word.dict.FormGrouper;
+import io.aif.language.word.dict.WordMapper;
+//import io.aif.language.word.dict.IDictBuilder;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -34,10 +38,10 @@ class DictBuildCommand extends BasicTextCommand {
         final List<String> tokens = tokenSplitter.split(text);
         final List<List<String>> sentences = sentenceSplitter.split(tokens);
         final List<String> filteredTokens = sentences.stream().flatMap(List::stream).collect(Collectors.toList());
-
         final ITokenComparator tokenComparator = ITokenComparator.defaultComparator();
-        final ISetComparator setComparator = ISetComparator.createDefaultInstance(tokenComparator);
-        final DictBuilder dictBuilder = new DictBuilder(setComparator, tokenComparator);
+        final IGroupComparator groupComparator = IGroupComparator.createDefaultInstance(tokenComparator);
+
+        final DictBuilder dictBuilder = new DictBuilder();
         final IDict dict = dictBuilder.build(filteredTokens);
 
         ResultPrinter.PrintStammerExtrctResult(dict.getWords());
