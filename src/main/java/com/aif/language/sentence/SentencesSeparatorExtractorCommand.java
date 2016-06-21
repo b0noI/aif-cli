@@ -41,7 +41,7 @@ class SentencesSeparatorExtractorCommand extends BasicTextCommand {
 
         final List<Set<Character>> separatorsGroupsUnclasify = separatorsGrouper.group(tokens, separators);
         final Map<ISeparatorGroupsClassifier.Group, Set<Character>> separatorsGroups = sentenceSeparatorGroupsClassificatory.classify(tokens, separatorsGroupsUnclasify);
-        ResultPrinter.PrintSentenceSeparatorSplitResult(separatorsGroups);
+        ResultPrinter.printSentenceSeparatorSplitResult(separatorsGroups);
         return null;
     }
 

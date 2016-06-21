@@ -2,10 +2,9 @@ package com.aif.language.sentence;
 
 import com.aif.cli.common.FileHelper;
 import com.aif.cli.common.ResultPrinter;
+import io.aif.associations.builder.AssociationGraph;
 import io.aif.language.common.*;
-import io.aif.language.semantic.ISemanticDict;
-import io.aif.language.semantic.ISemanticNode;
-import io.aif.language.semantic.SemanticDictBuilder;
+import io.aif.language.semantic.SemanticGraphBuilder;
 import io.aif.language.sentence.separators.classificators.ISeparatorGroupsClassifier;
 import io.aif.language.sentence.separators.extractors.ISeparatorExtractor;
 import io.aif.language.sentence.separators.groupers.ISeparatorsGrouper;
@@ -25,7 +24,7 @@ import java.util.stream.Collectors;
 /**
  * Created by olehkozlovskyi on 04.03.15.
  */
-public class SemanticDictBuildCommand extends BasicTextCommand{
+class SemanticDictBuildCommand extends BasicTextCommand{
 
 
     @Override
@@ -51,19 +50,10 @@ public class SemanticDictBuildCommand extends BasicTextCommand{
         final IMapper<Collection<String>, List<IWord.IWordPlaceholder>> toWordPlaceHolderMapper = new WordPlaceHolderMapper((ISearchable<String, IWord>)dict);
         final List<IWord.IWordPlaceholder> placeholders = toWordPlaceHolderMapper.map(filteredTokens);
 
-        final ISeparatorExtractor testInstance = ISeparatorExtractor.Type.PROBABILITY.getInstance();
-        final ISeparatorsGrouper separatorsGrouper = ISeparatorsGrouper.Type.PROBABILITY.getInstance();
-        final ISeparatorGroupsClassifier sentenceSeparatorGroupsClassificatory = ISeparatorGroupsClassifier.Type.PROBABILITY.getInstance();
-        final List<Character> separators = testInstance.extract(tokens).get();
-        final Map<ISeparatorGroupsClassifier.Group, Set<Character>> grouppedSeparators = sentenceSeparatorGroupsClassificatory.classify(tokens, separatorsGrouper.group(tokens, separators));
+        final SemanticGraphBuilder semanticGraphBuilder = new SemanticGraphBuilder();
+        final AssociationGraph<IWord> semanticDict = semanticGraphBuilder.build(placeholders);
 
-
-        final SemanticDictBuilder semanticDictBuilder = new SemanticDictBuilder(grouppedSeparators);
-        final ISemanticDict semanticDict = semanticDictBuilder.build(placeholders);
-
-        final List<ISemanticNode<IWord>> sortedNodes = semanticDict.getWords().stream().sorted((w2, w1) -> ((Double) w1.weight()).compareTo(w2.weight())).collect(Collectors.toList());
-
-        ResultPrinter.PrintSemanticDictionaryBuildResult(sortedNodes);
+        ResultPrinter.printSemanticDictionaryBuildResult(semanticDict);
 
         return null;
     }

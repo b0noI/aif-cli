@@ -21,7 +21,7 @@ class TokenSplitCommand extends BasicTextCommand {
 
         final TokenSplitter tokenSplitter = new TokenSplitter();
         final List<String> result = tokenSplitter.split(text);
-        ResultPrinter.PrintTokeSplitResult(result);
+        ResultPrinter.printTokeSplitResult(result);
         return null;
 
     }

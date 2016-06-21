@@ -23,7 +23,7 @@ class SentenceSplitCommand extends BasicTextCommand {
         final TokenSplitter tokenSplitter = new TokenSplitter();
         final ISplitter<List<String>, List<String>> sentenceSplitter = AbstractSentenceSplitter.Type.HEURISTIC.getInstance();
         final List<List<String>> result = sentenceSplitter.split(tokenSplitter.split(text));
-        ResultPrinter.PrintSentenceSplitResult(result);
+        ResultPrinter.printSentenceSplitResult(result);
         return null;
     }
 }

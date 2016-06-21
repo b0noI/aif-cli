@@ -30,7 +30,7 @@ class TokenSeparatorExtractorCommand extends BasicTextCommand {
             System.out.println(NO_SEPARATORS_MESSAGE);
         } else {
 
-            ResultPrinter.PrintSeparatorExtractResult(separators.get());
+            ResultPrinter.printSeparatorExtractResult(separators.get());
         }
 
         return null;
