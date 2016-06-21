@@ -11,14 +11,10 @@ import io.aif.language.token.comparator.ITokenComparator;
 //import io.aif.language.word.comparator.ISetComparator;
 import io.aif.language.word.comparator.IGroupComparator;
 import io.aif.language.word.dict.DictBuilder;
-import io.aif.language.word.dict.FormGrouper;
-import io.aif.language.word.dict.WordMapper;
 //import io.aif.language.word.dict.IDictBuilder;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 class DictBuildCommand extends BasicTextCommand {
@@ -38,13 +34,11 @@ class DictBuildCommand extends BasicTextCommand {
         final List<String> tokens = tokenSplitter.split(text);
         final List<List<String>> sentences = sentenceSplitter.split(tokens);
         final List<String> filteredTokens = sentences.stream().flatMap(List::stream).collect(Collectors.toList());
-        final ITokenComparator tokenComparator = ITokenComparator.defaultComparator();
-        final IGroupComparator groupComparator = IGroupComparator.createDefaultInstance(tokenComparator);
 
         final DictBuilder dictBuilder = new DictBuilder();
         final IDict dict = dictBuilder.build(filteredTokens);
 
-        ResultPrinter.PrintStammerExtrctResult(dict.getWords());
+        ResultPrinter.printStammerExtrctResult(dict);
         return null;
     }
 }

@@ -1,13 +1,10 @@
 package com.aif.cli.common;
 
 import com.sun.javafx.binding.StringFormatter;
-import io.aif.language.semantic.ISemanticNode;
+import io.aif.associations.builder.AssociationGraph;
 import io.aif.language.word.IWord;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
 
 public abstract class FileHelper {
 
@@ -30,7 +27,7 @@ public abstract class FileHelper {
         }
     }
 
-    public static void saveSemanticResult(List<ISemanticNode<IWord>> result) {
+    public static void saveSemanticResult(AssociationGraph<IWord> result) {
 
         final String template = "Semantic node: %s, with weight = %.5f. \n";
 
@@ -39,9 +36,9 @@ public abstract class FileHelper {
             {
 
 
-            result.forEach( s-> {
+            result.getVertices().forEach( s-> {
                 try {
-                    bw.write(StringFormatter.format(template, s.item().getRootToken(), s.weight()).getValue());
+                    bw.write(StringFormatter.format(template, s.getRootToken(), result.getVertexWeight(s)).getValue());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

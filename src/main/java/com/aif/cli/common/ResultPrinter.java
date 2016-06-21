@@ -1,7 +1,8 @@
 package com.aif.cli.common;
 
 
-import io.aif.language.semantic.ISemanticNode;
+import io.aif.associations.builder.AssociationGraph;
+import io.aif.language.common.IDict;
 import io.aif.language.sentence.separators.classificators.ISeparatorGroupsClassifier;
 import io.aif.language.word.IWord;
 
@@ -17,7 +18,7 @@ public class ResultPrinter {
     private static int length = 0;
     private static boolean stop = false;
 
-    public static void PrintSentenceSplitResult(List<List<String>> result) {
+    public static void printSentenceSplitResult(List<List<String>> result) {
 
         final String template = "Sentence: [ %s ]";
 
@@ -36,7 +37,7 @@ public class ResultPrinter {
 
     }
 
-    public static void PrintSentenceSeparatorSplitResult(Map<ISeparatorGroupsClassifier.Group, Set<Character>> result) {
+    public static void printSentenceSeparatorSplitResult(Map<ISeparatorGroupsClassifier.Group, Set<Character>> result) {
 
         final String template = "Group: \'%s\', characters: %s\n";
 
@@ -57,7 +58,7 @@ public class ResultPrinter {
 
     }
 
-    public static void PrintTokeSplitResult(List<String> result) {
+    public static void printTokeSplitResult(List<String> result) {
 
         final String template = "Token: [ %s ]";
 
@@ -76,7 +77,7 @@ public class ResultPrinter {
 
     }
 
-    public static void PrintSeparatorExtractResult(List<Character> result) {
+    public static void printSeparatorExtractResult(List<Character> result) {
 
         final String template = "Separator: \\u%s";
 
@@ -95,16 +96,18 @@ public class ResultPrinter {
 
     }
 
-    public static void PrintStammerExtrctResult(Set<IWord> result) {
+    public static void printStammerExtrctResult(IDict<IWord> result) {
 
-        final String template = "Basic token: %s tokens: [ %s ]";
+        final String template = "Basic token: %-20s count: [ %-10d ] tokens: [ %s ]";
 
-        length = result.size();
+        length = result.getWords().size();
+        List<IWord> words = new ArrayList<>(result.getWords());
+        words.sort((w1, w2) -> w2.getCount().compareTo(w1.getCount()));
 
-        result.forEach(word -> {
+        words.forEach(word -> {
 
             if(!stop) {
-                System.out.println(String.format(template, word.getRootToken(), word.getAllTokens()));
+                System.out.println(String.format(template, word.getRootToken(), word.getCount(), word.getAllTokens()));
                 length--;
                 count++;
                 stopper();
@@ -114,16 +117,18 @@ public class ResultPrinter {
 
     }
 
-    public static void PrintSemanticDictionaryBuildResult(List<ISemanticNode<IWord>> result) {
+    public static void printSemanticDictionaryBuildResult(AssociationGraph<IWord> result) {
 
-        final String template = "Semantic node: %s, with weight = %.5f.";
+        final String template = "Semantic node: %-20s, with weight = %.5f.";
 
-        length = result.size();
+        length = result.getVertices().size();
+        List<IWord> words = new ArrayList<>(result.getVertices());
+        words.sort((w1, w2) -> result.getVertexWeight(w2).compareTo(result.getVertexWeight(w1)));
 
-        result.forEach(word -> {
+        words.forEach(word -> {
 
             if(!stop) {
-                System.out.println(String.format(template, word.item().getRootToken(), word.weight()));
+                System.out.println(String.format(template, word.getRootToken(), result.getVertexWeight(word)));
                 length--;
                 count++;
                 stopper();
