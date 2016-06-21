@@ -34,6 +34,9 @@ public class Main {
     }
 
     private static void commandLinePrecheck(final CommandLine commandLine) throws ParseException {
+        if (commandLine.getOptions().length == 0) {
+            throw new ParseException("Command key is not provided");
+        }
         if (commandLine.getOptions().length > 1) {
             throw new ParseException("There are too many options");
         }
