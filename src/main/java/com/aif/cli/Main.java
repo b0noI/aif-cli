@@ -4,9 +4,6 @@ import com.aif.language.sentence.ICommand;
 import org.apache.commons.cli.*;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class Main {
 
@@ -16,8 +13,7 @@ public class Main {
             final CommandLine commandLine = Main.createCommandLineParser(options, args);
             commandLinePrecheck(commandLine);
             for (ICommand.Commands command : ICommand.Commands.values()) {
-                if (commandLine.hasOption(command.getCommandKey())) {
-                    command.getCommand().validate(commandLine.getArgs());
+                if (commandLine.hasOption(command.getCommandKey()) && command.getCommand().validate(commandLine.getArgs())) {
                     command.getCommand().apply(commandLine.getArgs());
                     return;
                 }
@@ -38,15 +34,8 @@ public class Main {
     }
 
     private static void commandLinePrecheck(final CommandLine commandLine) throws ParseException {
-        if (commandLine.getArgs().length == 0) {
-            throw new ParseException("There is no path");
-        }
-        if (commandLine.getArgs().length > 1) {
-            throw new ParseException("There are too many arguments");
-        }
-        final Path path = Paths.get(commandLine.getArgs()[0]);
-        if (!Files.exists(path)) {
-            throw new ParseException(String.format("Path: %s not exists", path));
+        if (commandLine.getOptions().length > 1) {
+            throw new ParseException("There are too many options");
         }
     }
 
