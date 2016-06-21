@@ -1,6 +1,5 @@
 package com.aif.cli;
 
-import com.aif.cli.common.FileHelper;
 import com.aif.language.sentence.ICommand;
 import org.apache.commons.cli.*;
 
@@ -15,6 +14,7 @@ public class Main {
         final Options options = Main.createCLIOptions();
         try {
             final CommandLine commandLine = Main.createCommandLineParser(options, args);
+            commandLinePrecheck(commandLine);
             for (ICommand.Commands command : ICommand.Commands.values()) {
                 if (commandLine.hasOption(command.getCommandKey())) {
                     command.getCommand().validate(commandLine.getArgs());
