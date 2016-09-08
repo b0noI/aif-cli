@@ -40,7 +40,7 @@ class SemanticDictBuildCommand extends BasicTextCommand {
     final List<String> filteredTokens =
         sentences.stream().flatMap(List::stream).collect(Collectors.toList());
 
-    final IDictBuilder dictBuilder = new DictBuilder();
+    final IDictBuilder<Collection<String>, IWord> dictBuilder = new DictBuilder();
     final IDict<IWord> dict = dictBuilder.build(filteredTokens);
     final IMapper<Collection<String>, List<IWord.IWordPlaceholder>> toWordPlaceHolderMapper =
         new WordPlaceHolderMapper((ISearchable<String, IWord>) dict);

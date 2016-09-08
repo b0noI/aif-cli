@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import io.aif.language.common.IDict;
 import io.aif.language.sentence.splitters.AbstractSentenceSplitter;
 import io.aif.language.token.TokenSplitter;
+import io.aif.language.word.IWord;
 import io.aif.language.word.dict.DictBuilder;
 
 class DictBuildCommand extends BasicTextCommand {
@@ -33,9 +34,9 @@ class DictBuildCommand extends BasicTextCommand {
         sentences.stream().flatMap(List::stream).collect(Collectors.toList());
 
     final DictBuilder dictBuilder = new DictBuilder();
-    final IDict dict = dictBuilder.build(filteredTokens);
-
+    final IDict<IWord> dict = dictBuilder.build(filteredTokens);
     ResultPrinter.printStammerExtrctResult(dict);
+
     return null;
   }
 }
